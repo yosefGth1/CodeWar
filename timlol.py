@@ -9,6 +9,9 @@ with open("timlool.txt",'a') as f:
         print(i[4])
         f.write(i[4]+"\n")
 
+
+
+
 '''
 
                         ####################### SETUP ##########################
