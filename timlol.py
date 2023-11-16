@@ -9,25 +9,25 @@ model = WhisperModel("large-v2", device="cuda", compute_type="auto")
 DIR_TO_SCAN = "Toomlal"
 DIRS = os.walk(f"C:\\Users\\userx\\Desktop\\PROJECTS\\war\\{DIR_TO_SCAN}")
 LS = [i for i in DIRS]
-print(LS)
+# print(LS)
 FILES = LS[0][2]
 print(f"files: {FILES}")
 
 def trans(file_name):
+    ext = file_name.split('.')[-1]
     result = model.transcribe(audio= f"C:\\Users\\userx\\Desktop\\PROJECTS\\war\\{DIR_TO_SCAN}\\{file_name}",
                             condition_on_previous_text=False,no_speech_threshold=0.4,
                             vad_filter=True,beam_size=7,patience=7,language='he')
 
     final_timlool = ""
 
-    with open(f"war/{DIR_TO_SCAN}/{file_name.replace('.mp3','')}.txt",'a',encoding='utf-8') as f:
+    with open(f"{os.path.abspath(DIR_TO_SCAN)}\\{file_name.replace(ext,'')}txt",'a',encoding='utf-8') as f:
         for i in result[0]:
             print(i[4])
             final_timlool += str(i[4]) + "\n"
         # print(final_timlool)
         f.write(final_timlool)
     
-
 
 for file in FILES:
     trans(file)
